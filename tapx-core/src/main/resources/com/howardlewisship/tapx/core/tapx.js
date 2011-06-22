@@ -107,8 +107,14 @@ Tapx.extendInitializer(function() {
 			value : state.values.toJSON()
 		});
 
+		var addButton = new Element("span", {
+			"class" : "tx-seteditor-add"
+		});
+
 		textField.insert({
 			after : hiddenField
+		}).insert({
+			after : addButton
 		});
 
 		var valuesColumn = textField.up(".tx-seteditor").down(
@@ -122,12 +128,7 @@ Tapx.extendInitializer(function() {
 			addItemToList(value, state, valueList, hiddenField);
 		});
 
-		textField.observe("keypress", function(event) {
-			if (event.keyCode != Event.KEY_RETURN)
-				return;
-
-			event.stop();
-
+		function addNewItem() {
 			var value = textField.value;
 
 			if (value == null || value.empty())
@@ -140,7 +141,18 @@ Tapx.extendInitializer(function() {
 			updateHiddenField(hiddenField, state);
 
 			textField.value = "";
+		}
+
+		textField.observe("keypress", function(event) {
+			if (event.keyCode != Event.KEY_RETURN)
+				return;
+
+			event.stop();
+
+			addNewItem();
 		});
+
+		addButton.observe("click", addNewItem);
 	}
 
 	return {
@@ -337,6 +349,7 @@ Tapx.extendInitializer(function() {
 		var type = element.type;
 
 		var interceptClickEvent = true;
+		var capturedClickEvent;
 
 		/*
 		 * Replace the normal click event, knowing that in most cases, the
@@ -347,7 +360,7 @@ Tapx.extendInitializer(function() {
 
 		function doAction() {
 			if ($T(element).hasAction) {
-				element.fire(Tapestry.ACTION_EVENT, event);
+				element.fire(Tapestry.ACTION_EVENT, capturedClickEvent);
 				return;
 			}
 
@@ -375,6 +388,8 @@ Tapx.extendInitializer(function() {
 			if (interceptClickEvent) {
 
 				event.stop();
+				
+				capturedClickEvent = event;
 
 				if ($(element).hasClassName('tx-disable-confirm')) {
 					doAction();
