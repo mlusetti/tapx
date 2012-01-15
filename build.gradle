@@ -27,14 +27,13 @@ subprojects {
         mavenCentral()
                
         // All things JBoss/Javassist/Hibernate
-        mavenRepo urls: "https://repository.jboss.org/nexus/content/repositories/releases/"
+        mavenRepo url: "https://repository.jboss.org/nexus/content/repositories/releases/"
         
         // For the Kaptcha library
-        mavenRepo urls: "http://howardlewisship.com/repository/"
+        mavenRepo url: "http://howardlewisship.com/repository/"
 
     	// Latest preview packages
-
-		mavenRepo urls: "https://repository.apache.org/content/groups/staging"
+		mavenRepo url: "https://repository.apache.org/content/groups/staging"
     }
     
     configurations {
@@ -86,12 +85,16 @@ subprojects {
         }
     }
     
-    ideaModule {
-      scopes.PROVIDED.plus += configurations.provided
-      javaVersion = "inherited"
+    idea {
+        module {
+            scopes.PROVIDED.plus += configurations.provided
+            javaVersion = "inherited"
+        }
     }
 }
 
-ideaProject {
-  javaVersion = "1.5"
+idea {
+    project {
+        javaVersion = "1.5"
+    }
 }
