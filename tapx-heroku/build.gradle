@@ -1,8 +1,8 @@
 description = "Common general components"
 
 versions = [
-        jetty : "8.0.3.v20111011",
-        mongo : "2.6.5"
+        jetty : "8.0.4.v20111024",
+        mongo : "2.7.2"
 ]
 
 dependencies {
