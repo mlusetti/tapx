@@ -1,15 +1,18 @@
 description = "Collection of add-ons for Tapestry 5"
 
-tapestryVersion = "5.3.0-SNAPSHOT"
+tapestryVersion = "5.3"
 
 if (!project.hasProperty('deployUserName')) deployUserName = '*UNSET-USERNAME*'
 if (!project.hasProperty('deployPassword')) deployPassword = '*UNSET-PASSWORD*'
 
 
+apply plugin: 'idea'
+
 subprojects {
     apply plugin: 'java'
     apply plugin: 'groovy' // mostly for testing
     apply plugin: 'eclipse'
+    apply plugin: 'idea'
     apply plugin: 'maven'
     apply plugin: 'project-report'
     
@@ -29,9 +32,9 @@ subprojects {
         // For the Kaptcha library
         mavenRepo urls: "http://howardlewisship.com/repository/"
 
-    	// Latest snapshots
+    	// Latest preview packages
 
-		mavenRepo urls: "https://repository.apache.org/content/repositories/snapshots"
+		mavenRepo urls: "https://repository.apache.org/content/groups/staging"
     }
     
     configurations {
@@ -51,7 +54,7 @@ subprojects {
         compile "org.apache.tapestry:tapestry-core:$tapestryVersion"        
         testCompile "org.apache.tapestry:tapestry-test:$tapestryVersion"        
         testCompile "org.easymock:easymock:3.0"
-        groovy "org.codehaus.groovy:groovy-all:1.7.4"
+        groovy "org.codehaus.groovy:groovy-all:1.7.10"
         
         deployerJars "org.apache.maven.wagon:wagon-ftp:1.0-beta-2"        
     }
@@ -82,4 +85,13 @@ subprojects {
             
         }
     }
+    
+    ideaModule {
+      scopes.PROVIDED.plus += configurations.provided
+      javaVersion = "inherited"
+    }
+}
+
+ideaProject {
+  javaVersion = "1.5"
 }

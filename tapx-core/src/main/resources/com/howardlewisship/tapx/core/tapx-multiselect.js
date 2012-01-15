@@ -1,4 +1,4 @@
-Tapx.extendInitializer(function() {
+T5.extendInitializers(function() {
 
 	function setupButton(select, button, callback) {
 		var enabled = false;
@@ -148,7 +148,7 @@ Tapx.extendInitializer(function() {
 				hiddenFieldValue.push(option.txClientValue);
 			});
 
-			hidden.value = hiddenFieldValue.toJSON();
+			hidden.value = Object.toJSON(hiddenFieldValue);
 		}
 
 		rebuildHiddenFieldValue();

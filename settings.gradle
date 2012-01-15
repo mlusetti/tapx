@@ -1,2 +1,3 @@
 include "tapx-core", "tapx-kaptcha", "tapx-datefield", "tapx-plainmessage"
-include "tapx-prototype", "tapx-templating", "tapx-yui", "tapx-processing"
+include "tapx-templating", "tapx-yui"
+include "tapx-json", "tapx-jms-core", "tapx-heroku"
